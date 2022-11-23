@@ -327,6 +327,12 @@ pub mod ast_ty {
     }
 
     pub fn raw_type(ctx: &BindgenContext, name: &str) -> TokenStream {
+        if name == "wchar_t" {
+            // fish-shell support
+            return quote! {
+                wchar::wchar_t
+            };
+        }
         let ident = ctx.rust_ident_raw(name);
         match ctx.options().ctypes_prefix {
             Some(ref prefix) => {

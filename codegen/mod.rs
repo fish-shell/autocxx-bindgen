@@ -3928,15 +3928,7 @@ impl TryToRustTy for Type {
                     IntKind::ULongLong => {
                         Ok(raw_type(ctx, "c_ulonglong").into())
                     }
-                    IntKind::WChar => {
-                        let layout = self
-                            .layout(ctx)
-                            .expect("Couldn't compute wchar_t's layout?");
-                        let ty = Layout::known_type_for_size(ctx, layout.size)
-                            .expect("Non-representable wchar_t?");
-                        let ident = ctx.rust_ident_raw(ty);
-                        Ok(quote! { #ident }.into())
-                    }
+                    IntKind::WChar => Ok(raw_type(ctx, "wchar_t").into()),
 
                     IntKind::I8 => Ok(quote! { i8 }.into()),
                     IntKind::U8 => Ok(quote! { u8 }.into()),
