@@ -330,7 +330,7 @@ pub mod ast_ty {
         if name == "wchar_t" {
             // fish-shell support
             return quote! {
-                wchar::wchar_t
+                crate::ffi::wchar_t
             };
         }
         let ident = ctx.rust_ident_raw(name);
